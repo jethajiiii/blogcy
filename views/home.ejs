@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./partials/head') %>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Homepage</title>
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- Navbar -->
+  <%- include('./partials/navbar') %>
+
+  <!-- Page Container -->
+  <div class="container mx-auto px-4 py-8 pt-28"> <!-- 👈 added pt-28 for spacing -->
+    <!-- Section Title -->
+    <h1 class="text-3xl md:text-4xl font-bold text-center mb-10 text-gray-200">
+        Your Daily Dose of <span class="text-indigo-400">Ideas</span> & <span class="text-purple-400">Stories</span>
+      </h1>
+      
+
+    <!-- Blog Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <% blogs.forEach(blog => { %>
+        <!-- Blog Card -->
+        <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 flex flex-col">
+          
+          <!-- Blog Image -->
+          <% if (blog.coverImageURL) { %>
+            <img src="<%= blog.coverImageURL %>" alt="Blog Cover" class="h-48 w-full object-cover">
+          <% } else { %>
+            <div class="h-48 w-full bg-gray-700 flex items-center justify-center text-gray-400">
+              No Image
+            </div>
+          <% } %>
+
+          <!-- Blog Content -->
+          <div class="p-6 flex-1 flex flex-col">
+            <h2 class="text-xl font-bold text-white mb-2 line-clamp-2"><%= blog.title %></h2>
+            <p class="text-gray-400 text-sm mb-4 flex-1">
+              <%= blog.body ? blog.body.substring(0, 120) : '' %>...
+            </p>
+
+            <!-- Read More button -->
+            <a href="/blog/<%= blog._id %>" 
+              class="mt-auto inline-block px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium hover:scale-105 transform transition">
+              Read More →
+            </a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <%- include('./partials/scripts') %>
+</body>
+</html>

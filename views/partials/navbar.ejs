@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Navbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-800/90 backdrop-blur-md shadow-lg fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-center h-16">
+        
+        <!-- Logo (new style) -->
+        <a href="/" class="flex items-center space-x-2">
+          <span class="text-3xl font-extrabold tracking-wide bg-gradient-to-r from-orange-400 to-pink-500 bg-clip-text text-transparent drop-shadow-sm">
+            Blogcy
+          </span>
+          <img src="/images/png-transparent-blogger-computer-icons-icon-blogger-logo-free-miscellaneous-angle-text-thumbnail.png" 
+               alt="Logo" class="w-9 h-9 rounded-lg shadow-md">
+        </a>
+
+        <!-- Nav Links (Desktop) -->
+        <ul class="hidden md:flex space-x-8 items-center text-sm font-medium mr-6">
+          <li><a href="/" class="hover:text-orange-400 transition">Home</a></li>
+
+          <% if (locals.user) { %>
+            <li><a href="/blog/add-new" class="hover:text-orange-400 transition">Add Blog</a></li>
+
+            <!-- Dropdown -->
+            <li class="relative group">
+              <button class="hover:text-orange-400 flex items-center gap-1 transition">
+                <span class="font-semibold"><%= locals.user.fullName || "User" %></span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <ul class="absolute left-0 top-full mt-1 w-44 bg-gray-800 shadow-lg rounded-md hidden group-hover:block overflow-hidden">
+                <li><a href="/user/logout" class="block px-4 py-2 hover:bg-gray-700">Log Out</a></li>
+                <li><a href="#" class="block px-4 py-2 hover:bg-gray-700">SEO</a></li>
+                <li><a href="#" class="block px-4 py-2 hover:bg-gray-700">Marketing</a></li>
+              </ul>
+            </li>
+          <% } else { %>
+            <li><a href="/user/signup" class="hover:text-orange-400 transition">Create Account</a></li>
+            <li><a href="/user/signin" class="hover:text-orange-400 transition">Signin</a></li>
+          <% } %>
+        </ul>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button id="menu-btn" class="focus:outline-none">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" 
+                stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-3 bg-gray-800 border-t border-gray-700">
+      <a href="/" class="block hover:text-orange-400">Home</a>
+      
+      <% if (locals.user) { %>
+        <a href="/blog/add-new" class="block hover:text-orange-400">Add Blog</a>
+
+        <!-- Mobile Dropdown -->
+        <div>
+          <button id="mobile-dropdown-btn" class="w-full text-left flex items-center justify-between hover:text-orange-400">
+            <span class="font-semibold"><%= locals.user.fullName || "User" %></span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="mobile-dropdown" class="hidden pl-4 mt-2 space-y-1">
+            <a href="/user/logout" class="block hover:text-orange-400">Log Out</a>
+            <a href="#" class="block hover:text-orange-400">SEO</a>
+            <a href="#" class="block hover:text-orange-400">Marketing</a>
+          </div>
+        </div>
+      <% } else { %>
+        <a href="/user/signup" class="block hover:text-orange-400">Create Account</a>
+        <a href="/user/signin" class="block hover:text-orange-400">Signin</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <script>
+    // Toggle mobile main menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Toggle mobile dropdown
+    const mobileDropdownBtn = document.getElementById('mobile-dropdown-btn');
+    const mobileDropdown = document.getElementById('mobile-dropdown');
+    if (mobileDropdownBtn) {
+      mobileDropdownBtn.addEventListener('click', () => {
+        mobileDropdown.classList.toggle('hidden');
+      });
+    }
+  </script>
+
+</body>
+</html>
