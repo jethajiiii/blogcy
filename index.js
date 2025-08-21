@@ -39,4 +39,5 @@ app.get('/', async (req, res) => {
 app.use('/user', userRouter)
 app.use('/blog', blogRouter)
 
-app.listen(PORT, () => console.log(`Server started at PORT ${PORT}`))
+// app.listen(PORT, () => console.log(`Server started at PORT ${PORT}`))
+module.exports = app; // export the app for testing purposes
