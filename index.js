@@ -10,7 +10,7 @@ const blogRouter = require('./routes/blog')
 const { checkForAuthenticationCookie } = require('./middlewares/authentication')
 
 const app = express();
-const PORT = process.env.PORT ||8000;
+const PORT = process.env.PORT ;
 
 app.use(express.static(path.resolve('./public'))) // static files ko serve krne ke liye middleware;
 
